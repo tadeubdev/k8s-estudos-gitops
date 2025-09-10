@@ -1,0 +1,39 @@
+namespace: prod
+
+resources:
+  - ../../base
+  - namespace.yaml
+  - hpa.yaml
+
+patches:
+  - target:
+      kind: Ingress
+      name: ingress
+    patch: |-
+      - op: replace
+        path: /spec/rules/0/host
+        value: frontend.localtest.me
+      - op: replace
+        path: /spec/rules/1/host
+        value: backend.localtest.me
+
+  - target:
+      kind: Deployment
+      name: backend
+    patch: |-
+      - op: replace
+        path: /spec/replicas
+        value: 1
+      - op: add
+        path: /spec/template/spec/containers/0/env
+        value:
+          - name: NODE_ENV
+            value: "production"
+
+  - target:
+      kind: Deployment
+      name: frontend
+    patch: |-
+      - op: replace
+        path: /spec/replicas
+        value: 2
