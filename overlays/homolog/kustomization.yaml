@@ -21,7 +21,13 @@ patches:
       name: backend
     patch: |-
       - op: replace
-        path: /spec/template/spec/containers/0/env
-        value:
-          - name: NODE_ENV
-            value: "staging"
+        path: /spec/template/spec/containers/0/image
+        value: ghcr.io/tadeubdev/k8s-estudos-backend:__IMAGE_TAG__
+
+  - target:
+      kind: Deployment
+      name: frontend
+    patch: |-
+      - op: replace
+        path: /spec/template/spec/containers/0/image
+        value: ghcr.io/tadeubdev/k8s-estudos-frontend:__IMAGE_TAG__
