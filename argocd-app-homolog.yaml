@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kube-estudos-homolog
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/tadeubdev/k8s-estudos-gitops.git
+    targetRevision: main
+    path: overlays/homolog
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: homolog
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
