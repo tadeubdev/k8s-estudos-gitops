@@ -30,4 +30,4 @@ patches:
     patch: |-
       - op: replace
         path: /spec/template/spec/containers/0/image
-        value: ghcr.io/tadeubdev/k8s-estudos-frontend:homolog-0.1.5
+        value: ghcr.io/tadeubdev/k8s-estudos-frontend:homolog-0.1.6
